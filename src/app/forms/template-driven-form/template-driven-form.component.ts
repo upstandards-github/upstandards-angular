@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-template-driven-form',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class TemplateDrivenFormComponent {
 
+  onSubmit(form:NgForm) {
+    console.log(form);
+  }
+
+  onReset(form:NgForm) {
+    form.resetForm();
+  }
 }
