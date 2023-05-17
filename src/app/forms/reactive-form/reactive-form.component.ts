@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-form',
@@ -8,12 +8,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReactiveFormComponent {
 
-  userForm = new FormGroup({
-    firstname: new FormControl(''),
-    lastname: new FormControl('Bhola'),
-    address: new FormGroup({
-      state: new FormControl(''),
-      city: new FormControl(''),
+  constructor(public fb: FormBuilder) { }
+ 
+  get fname() {
+    return this.userForm.get('firstname');
+  }
+  userForm = this.fb.group({
+    firstname: ['',[Validators.required, Validators.minLength(5)]],
+    lastname: ['Bhola'],
+    address: this.fb.group({
+      state:[''],
+      city:['']
     })
   })
 

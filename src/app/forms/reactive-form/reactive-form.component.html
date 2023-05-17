@@ -8,7 +8,12 @@
             <div class="form-group">
               <label for="exampleInputEmail1">First Name</label>
               <input type="text" class="form-control" id="exampleInputEmail1" formControlName="firstname" placeholder="first name">
+              <div class="text-danger m-2" *ngIf="fname?.invalid && fname?.touched">
+                <small *ngIf="fname?.errors && fname?.errors?.['required']">First Name is required</small>
+                <small *ngIf="fname?.errors && fname?.errors?.['minlength']">First name should have minimum of 5 character</small>
+              </div>
             </div>
+            <!-- {{fname?.errors | json}} -->
             <div class="form-group">
               <label for="exampleInputPassword1">Last Name</label>
               <input type="text" class="form-control" id="exampleInputPassword1" formControlName="lastname" placeholder="Last Name">
@@ -21,14 +26,13 @@
                     <label for="street">State: </label>
                     <input type="text" class="form-control" id="street" formControlName="state" >
                 </div>
-              
                 <div class="form-group">
                     <label for="city">City: </label>
                     <input type="text" class="form-control" id="city" formControlName="city">
                 </div>
               </div>
             <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
             <button type="submit" class="btn btn-success" (click)="updateForm()">Update</button>
           </form>
 
