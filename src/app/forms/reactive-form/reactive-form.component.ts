@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-form',
@@ -13,13 +13,24 @@ export class ReactiveFormComponent {
   get fname() {
     return this.userForm.get('firstname');
   }
+
+  get emailE() {
+    return this.userForm.get('email');
+  }
+
+  get getalternateemail() {
+    return this.userForm.get('alternatermails') as FormArray;
+  }
+
   userForm = this.fb.group({
     firstname: ['',[Validators.required, Validators.minLength(5)]],
     lastname: ['Bhola'],
+    email:['',[Validators.required, Validators.email]],
     address: this.fb.group({
       state:[''],
       city:['']
-    })
+    }),
+    alternatermails: this.fb.array([])
   })
 
   updateForm() {
@@ -30,5 +41,9 @@ export class ReactiveFormComponent {
         city:'berhampur'
       }
     })
+  }
+
+  addAlternateEmails() {
+    this.getalternateemail.push(this.fb.control('',[Validators.required,Validators.email]));
   }
 }
